@@ -9,33 +9,41 @@
 
 	<body>
 		<div>
-        	<h1>
+        	<h1 style = 'font-family:verdana'>
                 To do list:
             </h1>
         
     	</div>
+        <div class="control">
+            <form action='' method='POST'>
+                {% csrf_token %}
+                <input type="text" name="title" id="myInput" placeholder="Title...">
+                <br>
+                <input type="text" name="message" id="myInput" placeholder="Message...">
+                <br>
+                <button type="submit" class="addBtn">Add thing to do </button>
+                
+            </form>
+        </div>
     	<div class="media-content">
     		{% for todo in todos %}
                 <div class="content">
                     <p>
-                        <span class="title">{{ todo.title }}</span>
+                        <span style = 'font-family:verdana; font-size:20px; font-weight:bold' class="title">{{ todo.title | upper }}</span>
                         <br>
-                        <span class="subtitle">{{ todo.message }}</span>
+                        <span style = 'font-family:verdana;' class="subtitle">{{ todo.message | capfirst }}</span>
                         <br>
-                        <span class="subtitle">{{ todo.date }}</span>
+                        <span style = 'font-family:verdana; font-size:10px' class="subtitle">{{ todo.date }}</span>
                         <a href="{% url 'delete_todo' todo.title %}">
-                        	<button class="delete"></button>
+                        	<button class="delete">Delete</button>
                         </a>
-                        
+                        <br>
+                        <br>
                     </p>
                 </div>
             {% endfor %}
         </div>
-    	<div class="control">
-    		<button type="submit" class="button is-info">
-                Add thing to do 
-            </button>
-        </div>
+
 	</body>
 
 </html>
