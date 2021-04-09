@@ -9,6 +9,12 @@ def home(request):
 	todos = Todo.objects.all()
 
 	todo_data = []
+
+	if request.method =="POST":
+		new_todo = Todo(title = request.POST['title'], message = request.POST['message'])
+		new_todo.save()
+		return redirect('home')
+
 	for todo in todos:
 
 		todo_list = {
@@ -16,6 +22,8 @@ def home(request):
 			'message': todo.message
 			}
 		todo_data.append(todo_list)
+
+
 
 	return render(request, 'todo/todo.html', {'todos':todos, 'todo_list':todo_list})
 
